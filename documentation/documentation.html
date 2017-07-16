@@ -1,0 +1,1361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title>Date Time Picker</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+		<script type="text/javascript" src="../js/datetimepicker.js"></script>
+		<link href="../css/datetimepicker.css" rel="stylesheet" />
+		<style>
+			html{
+				background:#fefefe;
+			}
+			
+			body,table{
+				font-family: 'Helvetica Neue', Arial, Helvetica, Geneva, sans-serif;
+				font-size:12px;
+			}
+			
+			table{
+				border-top:1px solid #ccc; 
+				border-bottom:1px solid #ccc; 
+				border-left:1px solid #ccc; 
+				margin-bottom:10px;
+			}
+			
+			td{
+				padding:10px;
+				border-top: 1px solid #CCC; 
+				border-right: 1px solid #CCC;
+				position:relative;
+			}
+			
+			th{
+				padding: 10px; background: #EEE; 
+				text-align: left; 
+				border-right:1px solid #ccc;
+			}
+			
+			input{
+				float:left; 
+				width:160px;
+			}	
+
+			label{
+				width:200px;
+			}
+			
+			ul {
+				list-style: none;
+				padding-left: 0; 
+				margin: 0;
+			}
+			
+			ul.indent{
+				padding-left:15px;
+			}
+			
+			li{
+				padding:5px 0;
+			}
+			
+			p{
+				margin: 10px 0;
+			}
+			
+			a, a:active, a:visited{
+				color:maroon; 
+				text-decoration:none; 
+				border-bottom:1px dotted maroon;
+			}
+			
+			a:hover{
+				border-bottom:none;
+			}
+			
+			h1 {
+				color:black; 
+				border-bottom: 1px solid #000;
+				padding: 3px;
+			}
+			
+			h2{
+				color:black; 
+				border-bottom: 1px dotted #999;
+			}
+			
+			h3{ 
+				font-weight:normal;
+				border-bottom: 1px dotted #999;
+			}
+			
+			span.fieldlabel{float:left; min-width:200px; padding:2px 0; margin-right:20px;}
+			span.fieldlabel.long{min-width:550px;}
+			span.fieldlabel.medium{min-width:285px;}
+			.inner-wrapper{clear:both;padding:10px 0;}			
+			.content-wrapper{margin:50px;}			
+			.inner-content-wrapper{padding:0 10px;}
+			.response-label{display:none; clear:both; font-family: monospace; padding-top:5px;}
+			.red{color:red;}
+			.blue{color:blue;}
+			.green{color:green;}
+			.maroon{color:maroon;}
+			.grey{color:grey;}
+			.black{color:black;}
+			.right{float:right;}
+			.left{float:left;}
+			.mono {font-family: monospace;}
+			.bold {font-weight:bold;}
+			/*input[type="button"]{margin:2px 10px; width:auto;}*/
+			input[type="button"]{margin:2px 10px 2px 0; width:auto; min-width:160px;}
+			
+			.date-toggler, .date-toggler-focus{position: relative;  margin-left: 5px; cursor: pointer;}
+			div.date-toggler, div.date-toggler-focus{width:20px; height:21px; float:left; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAWdEVYdENyZWF0aW9uIFRpbWUAMDQvMjYvMTJCLJ+iAAAD1klEQVQ4jVWUX2tdRRTFf3vPPuee5CZNUqKtKbZFKVT8g4Ig0qeCvviifjg/gZ9BqA8iSJXig/gHWiqpbdPGGtI0bdPce86cM3v7cJIaB4ZhHvbaa9ZeayS6g9gZDnm0+TcLaqycO83O1mPUMqurr6GaaOd7DDRMlxqGx/8Q0ympOUM5fID0ibLSsH7qFItVg9z87U5c37zNG+trrC6d4odfbnN+ZYm33z3Pdz/9SfHg6kdvsnnnEfd2n3HlvQ2eDTN+v/WcS2dXeOvCKt/8fJfTq6/yzsV17I/b29x7qCxPlM6F+7tTJmRe7zJbey2E0oWw86xna2fC5dmEAy/ce1RYW17mSWvc32nYex5o2cVy7PH4ufHw8T7V0wN253MWZxn7a5vDzgH49e42Wwct+52wuf2EgzJjv4X7e08ZFoyDSMyePmLjTIN89fW1+PbGQORdkgqHaYXIhzQpQZ4CSlTPKLqID8aU53Tm5OE0jR7SVwfkfo1lfcHVK5ewtfVVrn64T9LLzLsemwReTqEkRAEgfAmPQkpKsEx4kFQo3iCyTkqC6jqrq0vYObnLp598gOoCVT0h9xlNjuBEjIAiQhAIwvESEcowNhn6QgC3bt7Con6F/RnUC3Bh/Qy9B6ZCAB6ByAmYYGwi4yVCMIX7Dx7QzltymmKlTVRUmBdKn/EhkSkg/pLV8SkI7o6o4D7Sl7rBUCZqRD9gkhIeA6EB0jGgKAIeiEAIeAgigQKOk1DiSJIYMuE9JTLuPVrSIUUziIHUJIFIFVotIJrIdZAmQa0KUlNIYBMqnVCHkSYKKeg9IxWYeEAoQw99W+i6HqmCEKNEYTFnDq59jw9C8/lniA+08x48qETpZwNlANMaxVA/GqWqYLUxaRoWFESCsrAIntj78QZPr9+AAo3VpKpCm5qojcmkRnXUFsBEhIigFCfnTO4GKgquRidCVFB9/D6LXqHuzGYdOQkpJWIYwBLujupoWhs9BapKSglLQZ8SaXBWukzfGGe/+BJtC8UEF8VE0MExEvVkgsgJhiCIjF26rh1NGgbFkcFHbRca3APrWpzAzPB+oIjQtvHS6O6OpmS4jwzNDFGoAkSVvkqkykg500iMfh4ciuMCg45yHe+qqjB3J8JfPllEUFPCj80MoQmOEmNVQpMACgJmhpnR9z1d12GlFKqqYj6fs729jbtjZkQ4J5fIiRyrEv5f1kspRzWBNU1Dzpm6rl8W9X3mRP34OcQIICJjggIigpQqUkq0bcva2hp28eJFtra2ePHiBaqKqh6xi/8BHk/xJFOAiFHH6XTKxsYG/wIS/BWNEadXjQAAAABJRU5ErkJggg==);}
+			
+			div.download-wrapper{padding:10px; clear:both; border:1px solid #ccc; margin-top:5px;}
+			span.download-label{float:left; min-width:100px; padding:0; margin-right:20px;}
+			.download-list{}
+			.download-list li{display:inline;margin-right:20px; padding:0;}
+			
+			/*Code highlighting*/
+			pre{
+				margin: 10px 0; 
+				padding: 11px; 
+				background: white; 
+				border: 1px solid #CCC; 
+				font-family: monospace; 
+				white-space:pre-wrap; 
+				*word-wrap: break-word;
+			}	
+			
+			pre .comment,
+			pre .template_comment,
+			pre .javadoc,
+			pre .comment * {
+			  color: #800;
+			}
+
+			pre .keyword,
+			pre .ruby .function .keyword,
+			pre .function .keyword,
+			pre .sub .keyword,
+			pre .method,
+			pre .list .title,
+			pre .tag .title,
+			pre .setting .value,
+			pre .winutils,
+			pre .tex .command {
+			  color: #008;
+			}
+
+			pre .envvar,
+			pre .tex .special {
+			  color: #660;
+			}
+
+			pre .string,
+			pre .tag .value,
+			pre .cdata,
+			pre .filter .argument,
+			pre .attr_selector,
+			pre .apache .cbracket,
+			pre .date,
+			pre .regexp {
+			  color: #080;
+			}
+
+			pre .sub .identifier,
+			pre .pi,
+			pre .tag,
+			pre .tag .keyword,
+			pre .decorator,
+			pre .ini .title,
+			pre .shebang,
+			pre .input_number,
+			pre .hexcolor,
+			pre .rules .value,
+			pre .css .value .number,
+			pre .literal,
+			pre .symbol,
+			pre .ruby .symbol .string,
+			pre .ruby .symbol .keyword,
+			pre .ruby .symbol .keymethods,
+			pre .number,
+			pre .css .function {
+			  color: #066;
+			}
+
+			pre .class .title,
+			pre .haskell .label,
+			pre .smalltalk .class,
+			pre .javadoctag,
+			pre .yardoctag,
+			pre .phpdoc,
+			pre .typename,
+			pre .tag .attribute,
+			pre .doctype,
+			pre .class .id,
+			pre .built_in,
+			pre .setting,
+			pre .params,
+			pre .variable {
+			  color: #606;
+			}
+
+			pre .css .tag,
+			pre .rules .property,
+			pre .pseudo,
+			pre .subst {
+			  color: #000;
+			}
+
+			pre .css .class, pre .css .id {
+			  color: #9B703F;
+			}
+
+			pre .value .important {
+			  color: #ff7700;
+			  font-weight: bold;
+			}
+
+			pre .rules .keyword {
+			  color: #C5AF75;
+			}
+
+			pre .annotation,
+			pre .apache .sqbracket,
+			pre .nginx .built_in {
+			  color: #9B859D;
+			}
+
+			pre .preprocessor,
+			pre .preprocessor * {
+			  color: #444;
+			}
+
+			pre .tex .formula {
+			  background-color: #EEE;
+			  font-style: italic;
+			}
+
+			pre .diff .header,
+			pre .chunk {
+			  color: #808080;
+			  font-weight: bold;
+			}
+
+			pre .diff .change {
+			  background-color: #BCCFF9;
+			}
+
+			pre .addition {
+			  background-color: #BAEEBA;
+			}
+
+			pre .deletion {
+			  background-color: #FFC8BD;
+			}
+
+			pre .comment .yardoctag {
+			  font-weight: bold;
+			}
+			/*END - Code highlighting*/
+		</style>
+		<script>
+			window.onload =function(){
+				document.getElementById('version-number').innerHTML = DateTimePicker.version;
+				document.getElementById('copy-right-year').innerHTML = new Date().getFullYear();
+			
+				var dtp1 = new DateTimePicker('.demo-css-theme',{ timePicker: true, timePickerFormat:24, format: 'd/m/Y @ H:i', allowEmpty:true });
+				var dtp1a = new DateTimePicker('.demo-css-theme-yellow',{ pickerClass: 'datetimepicker-yellow', timePicker: true, timePickerFormat:12, format: 'd/m/Y @ h:i a', allowEmpty:true });
+				var dtp1b = new DateTimePicker('.demo-css-theme-green',{ pickerClass: 'datetimepicker-green', timePicker: true, timePickerFormat:24, format: 'd/m/Y @ H:i', allowEmpty:true });
+				var dtp1c = new DateTimePicker('.demo-css-theme-blue',{ pickerClass: 'datetimepicker-blue', timePicker: true, timePickerFormat:12, format: 'd/m/Y @ h:i a', allowEmpty:true });
+				var dtp1d = new DateTimePicker('.demo-css-theme-red',{ pickerClass: 'datetimepicker-red', timePicker: true, timePickerFormat:24, format: 'd/m/Y @ H:i', allowEmpty:true });
+				var dtp1e = new DateTimePicker('.demo-css-theme-purple',{ pickerClass: 'datetimepicker-purple', timePicker: true, timePickerFormat:12, format: 'd/m/Y @ h:i a', allowEmpty:true });
+				var dtp1f = new DateTimePicker('.demo-css-theme-orange',{ pickerClass: 'datetimepicker-orange', timePicker: true, timePickerFormat:24, format: 'd/m/Y @ H:i', allowEmpty:true });
+								
+				
+				var dtp3 = new DateTimePicker('.demo-noyear', { pickerClass: 'datetimepicker', 
+																yearPicker: false, 
+																allowEmpty:true  
+															});
+															
+				var dtp4 = new DateTimePicker('.demo-time', { pickerClass: 'datetimepicker', 
+																timePicker: true, 
+																timePickerFormat:12, 
+																format: 'd/m/Y @ h:i a', 
+																allowEmpty:true  
+															});
+				
+				var dtp5 = new DateTimePicker('#demo-time-only', { pickerClass: 'datetimepicker', 
+																	timePicker: true, 
+																	timePickerOnly: true, 
+																	timePickerFormat:12, 
+																	format: 'h:i a / H:i (24\\hr)', 
+																	allowEmpty:true 
+																});
+				
+				var dtp6 = new DateTimePicker('#demo-time-only-24', { pickerClass: 'datetimepicker', 
+																		timePicker: true, 
+																		timePickerOnly: true, 
+																		timePickerFormat:24, 
+																		format: 'g:i a / G:i (24\\hr)', 
+																		allowEmpty:true 
+																	});
+				
+				var dtp7 = new DateTimePicker('.demo-allow-empty', {pickerClass: 'datetimepicker',
+																	allowEmpty: true
+																});
+				
+				var dtp8 = new DateTimePicker('.date-toggled', {pickerClass: 'datetimepicker', 
+																allowEmpty: true, 
+																toggleElements: '.date-toggler'
+															});
+				
+				var dtp9 = new DateTimePicker('.date-toggled-focus', {pickerClass: 'datetimepicker',
+																		allowEmpty: true,
+																		toggleElementsOnly:false,
+																		toggleElements: '.date-toggler-focus'
+																	});
+																	
+				var dte = new Date();
+				var demo_ranged_from = dtp1.format(new Date(dte.getFullYear(), dte.getMonth() - 1, 1), 'd-m-Y');
+				var demo_ranged_to = dtp1.format(new Date(dte.getFullYear(), dte.getMonth() + 1, 25), 'd-m-Y');
+				var demo_ranged_year_from = dtp1.format(new Date(dte.getFullYear() - 1, dte.getMonth(), 25), 'd-m-Y');
+				var demo_ranged_year_to = dtp1.format(new Date(dte.getFullYear() + 1, dte.getMonth(), 25), 'd-m-Y');
+
+				var list = document.getElementsByClassName('date-ranged-from');
+				for(var i = 0; i < list.length; i++){list[i].innerHTML = demo_ranged_from;}
+				
+				var list = document.getElementsByClassName('date-ranged-to');
+				for(var i = 0; i < list.length; i++){list[i].innerHTML = demo_ranged_to;}
+				
+				var list = document.getElementsByClassName('date-ranged-year-from');
+				for(var i = 0; i < list.length; i++){list[i].innerHTML = demo_ranged_year_from;}
+				
+				var list = document.getElementsByClassName('date-ranged-year-to');
+				for(var i = 0; i < list.length; i++){list[i].innerHTML = demo_ranged_year_to;}
+				
+				var dtp10 = new DateTimePicker('.demo-ranged', {pickerClass: 'datetimepicker',
+																format: 'jS F Y',
+																yearPicker: false,
+																minDate: { date: demo_ranged_from, format: 'd-m-Y' },
+																maxDate: { date: demo_ranged_to, format: 'd-m-Y' }
+															});
+				
+				var dtp10b = new DateTimePicker('.demo-ranged-year', {pickerClass: 'datetimepicker',
+																timePickerFormat:12, 
+																format: 'd/m/Y @ h:i a', 
+																timePicker:true,
+																minDate: { date: demo_ranged_year_from, format: 'd-m-Y' },
+																maxDate: { date: demo_ranged_year_to, format: 'd-m-Y' }
+															});
+				
+				var dtp11 = new DateTimePicker('.demo-value', {pickerClass: 'datetimepicker',
+																timePicker:true,
+																timePickerFormat:12,
+																inputOutputFormat: 'Y-m-d H:i:s',
+																format:'jS M Y @ h:i a',
+																startDate:'2012-05-21 17:00:00',
+																onSelect: function(){
+																	var dt = arguments[0];
+																	var lbl = document.getElementById('formatted-output-value');
+																	lbl.style.display = 'block';
+																	lbl.innerHTML = 'Custom inputOutputFormat return value: '+dt+' Notice the difference between this format and that within the input field.';
+																}
+															});
+															
+				var dtp12 = new DateTimePicker('.demo-value2', {pickerClass: 'datetimepicker',
+																onSelect: function(){
+																	var dt = arguments[0];
+																	var jsdt = new Date(parseInt(dt));
+																	var lbl = document.getElementById('default-output-value');
+																	lbl.style.display = 'block';
+																	lbl.innerHTML = 'Default return value: '+dt+' as a millisecond TimeStamp and converted to a Date object: '+jsdt.toString();
+																}
+															});
+															
+				var dtp13 = new DateTimePicker('.demo-french', {pickerClass: 'datetimepicker',
+																days: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+																months: ['Janvier', 'F&egrave;vrier'/*Fèvrier*/, 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Ao&ucirc;t', 'Septembre', 'Octobre', 'Novembre', 'D&egrave;cembre'/*Dècembre*/]
+															});
+				
+				var dtp14 = new DateTimePicker('#demo-set-date', {pickerClass: 'datetimepicker',
+																	timePicker:true, 
+																	allowEmpty:true,
+																	format:'d/m/Y @ h:i a'
+																});
+				
+				var dtp15 = new DateTimePicker('#demo-refresh', {pickerClass: 'datetimepicker',
+																	timePicker:true, 
+																	allowEmpty:true, 
+																	format:'d/m/Y @ h:i a'
+																});
+				
+				var btnSetDateString = document.getElementById('button-set-date-string');
+				btnSetDateString.onclick = function(){	
+					var from = new Date();
+					var to = new Date((from.getFullYear() + 1), from.getMonth(), from.getDate());
+					var dte = new Date(from.getTime() + Math.random() * (to.getTime() - from.getTime()));					
+					var fmtdte = dtp14.format(dte, dtp14.options.inputOutputFormat);
+					dtp14.setDate(fmtdte);
+				}
+				
+				var btnSetDateDate = document.getElementById('button-set-date-date');
+				btnSetDateDate.onclick = function(){	
+					var from = new Date();
+					var to = new Date((from.getFullYear() + 1), from.getMonth(), from.getDate());
+					var dte = new Date(from.getTime() + Math.random() * (to.getTime() - from.getTime()));					
+					dtp14.setDate(dte);
+				}
+				
+				var btnSetDateClear = document.getElementById('button-set-date-clear');
+				btnSetDateClear.onclick = function(){					
+					dtp14.setDate();
+				}
+				
+				var btnRefreshValue = document.getElementById('button-refresh-value');
+				btnRefreshValue.onclick = function(){
+					var from = new Date();
+					var to = new Date((from.getFullYear() + 1), from.getMonth(), from.getDate());
+					var dte = new Date(from.getTime() + Math.random() * (to.getTime() - from.getTime()));
+					document.getElementById('demo-refresh').value = dtp14.format(dte, dtp14.options.inputOutputFormat);
+					dtp15.refresh();
+				}
+				
+				var btnRefreshClear = document.getElementById('button-refresh-clear');
+				btnRefreshClear.onclick = function(){
+					document.getElementById('demo-refresh').value = '';
+					dtp15.refresh();
+				}
+			};	
+		</script>
+	</head>
+	<body>
+		<div class="content-wrapper">
+			<h1>DateTimePicker</h1>
+			
+			<div class="inner-content-wrapper">
+				<p><span class="left">Version</span>&nbsp;<span id="version-number">0.0.0.0</span> &nbsp; <span class="right">&copy; <span id="copy-right-year">0000</span></span></p>
+				<p>DateTimePicker is JavaScript date and time picker that utilises no external Javascript libraries or tool kits. Highly configurable the DateTimePicker works with any date or time format and can either be applied as a date, date/time or time picker.</p>
+				
+				<div class="inner-wrapper">
+					<h2>Usage</h2>
+					<pre><code class="javascript"><span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(input-target-selector [, options-object]);</code></pre>
+					<p>Where the input-target-selector is an element class name or id, for example <span class="mono blue">.datetimepickers</span> or <span class="mono blue">#pickerone</span>. The datetimepicker will be effective for all selected input elements.</p>
+					<p>Detailed <a href="#examples">examples</a> of usage are given below.</p>
+				</div>
+				
+				<div class="inner-wrapper">
+					<h2>Usage with Ajax</h2>
+					<p>After the DateTimePicker instance has been created, when using ajax to retrieve a new date, there are two methods that can be used to update the instance and correctly formatted the retrieved date.</p>
+					
+					<p>When loading or updating the date via the input elements <span class="mono red">value</span> attribute, by simply calling the <span class="mono red">refresh()</span> method, the DateTimePicker will re-bind to its targets and correctly format the new date value.</p>
+					<pre><code class="javascript">dtp.refresh();</code></pre>
+					<p>Refer to the <a href="#refresh-description">refresh method description</a> for more details or view the <a href="#refreshed">Refresh Method</a> example.</p>
+					
+					<div class="inner-wrapper"></div>
+					
+					<p>When it is required to loading or updating the date via JavaScript, by calling the <span class="mono red">setDate()</span> method and passing either a JavaScript <span class="mono red">Date object</span> or a date string in the format of the <span class="mono red">inputOutputFormat</span>, the DateTimePicker will re-bind to its targets and correctly format the new date value.</p>
+					<p>To reset the DateTimePicker instance by calling the <span class="mono red">setDate()</span> method and not passing any value the picker will either clear the current date or will set it to today depending on if the <span class="mono red">allowEmpty</span> is set the <span class="mono blue">true</span> or <span class="mono blue">false</span>.</p>
+					<pre><code class="javascript">dtp.setDate();
+					
+dtp.setDate([new-date])</code></pre>
+					<p>Refer to the <a href="#setdate-description">setDate method description</a> for more details or view the <a href="#setdate">SetDate Method</a> example.</p>
+				</div>
+				
+				<div class="inner-wrapper">
+					<h2>Options</h2>
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<th>Option</th>
+								<th>Default&nbsp;value</th>
+								<th>Description</th>
+								<th>Options</th>
+							</tr>
+							<tr>
+								<td class="mono red">pickerClass</td>
+								<td class="mono">datetimepicker</td>
+								<td>CSS class for the main datetimepicker container element. <br><br>Also refer to <a href="#create-theme">Creating your own theme</a></td>
+								<td class="mono blue">datetimepicker,<br>datetimepicker-yellow,<br>datetimepicker-green,<br>datetimepicker-blue,<br>datetimepicker-red</span></td>
+							</tr>
+							<tr>
+								<td class="mono red">toggleElements</td>
+								<td class="mono">null</td>
+								<td>Toggle your datetimepicker by clicking another element. Specified as a id or class selector, the resulting elements are mapped to the selected datetimepickers by index (the 1st toggle works for the 1st input, the 2nd toggle works for the 2nd input, etc.). <br><br>View the <a href="#toggle">Toggle by Element</a> example.</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">toggleElementsOnly</td>
+								<td class="mono">true</td>
+								<td>The picker will only fire from using the Toggle. Setting to <span class="mono red">false</span> will also open the picker when the input field has focus<br></td>
+								<td class="mono blue">true, false</td>
+							</tr>
+							<tr>
+								<td class="mono red">days</td>
+								<td class="mono">['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']</td>
+								<td><p>Labels for the days, allows for localisation. View the <a href="#localised">Localised Month/Day labels</a> example.</p></td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">dayShort</td>
+								<td class="mono">2</td>
+								<td>Length of day-abbreviations used in the datetimepicker.</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">daySuffix</td>
+								<td class="mono">["th", "st", "nd", "rd"]</td>
+								<td>Suffix labels for the day of the month, allows for localisation. <br><br>If localisation requires altering this option, note the current position of each existing suffix value within the array.</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">months</td>
+								<td class="mono">['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']</td>
+								<td><p>Labels for the months, allows for localisation. View the <a href="#localised">Localised Month/Day labels</a> example.</p></td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">monthShort</td>
+								<td class="mono">3</td>
+								<td>Length of month-abbreviations used in the datetimepicker.</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">startDay</td>
+								<td class="mono">1</td>
+								<td>First day of a week. Can be <span class="mono red">0</span> (Sunday) through <span class="mono red">6</span> (Saturday) - be aware that this may affect your layout, since days in the last column will likely have a style with <span class="mono red">right-margin: 0px;</span>which would need to be applied to a different day. Default value <span class="mono red">1</span> is Monday.</td>
+								<td class="mono blue">0 - 6</td>
+							</tr>
+							<tr>
+								<td class="mono red">startDate</td>
+								<td class="mono">null</td>
+								<td>The date the picker is to start at. Supply as a JavaScript <span class="mono red">Date</span> object or as a date string in the format of the <span class="mono red">inputOutputFormat</span>. <br><br>Also refer to the <a href="#input-output">Input/Output value and format</a> example.</td>
+								<td class="mono blue"><i>Refer to the 'Input/Output value and format' example</i></td>
+							</tr>
+							<tr>
+								<td class="mono red">timePicker</td>
+								<td class="mono">false</td>
+								<td><p>Enable/disable timepicker functionality. Hours/Minutes values can be changed using the scrollwheel or arrow keys and confirmed by clicking Ok or pressing enter. <br><br>Also refer to the <a href="#year-time-picking">Yearpicking / Timepicking</a> example.</p></td>
+								<td class="mono blue">true, false</td>
+							</tr>
+							<tr>
+								<td class="mono red">timePickerOnly</td>
+								<td class="mono">false</td>
+								<td>Set to <span class="mono red">true</span> to use datetimepicker for time-selection only by automatically forcing the <span class="mono red">timePicker</span> and <span class="mono red">startView</span> options into timepicker mode. Set the format accordingly to display either 12 (<span class="mono red">h:i a</span>) or 24 (<span class="mono red">H:i</span>) hour.</td>
+								<td class="mono blue">true, false</td>
+							</tr>
+							<tr>
+								<td class="mono red">timePickerFormat</td>
+								<td class="mono">24</td>
+								<td>The time format the picker will display the selectors.</td>
+								<td class="mono blue">12, 24</td>
+							</tr>
+							<tr>
+								<td class="mono red">minuteIncrement</td>
+								<td class="mono">1</td>
+								<td>The value in which the minute portion of the timepicker will increase or decrease when selecting.<br><br>On opening of the timepicker if no value is set the time defaults to the current time. If the <span class="mono red">minuteIncrement</span> is set to any thing other than <span class="mono blue">1</span> the minute portion will round to the nearest instance matching the set increment. For example if the current time is <span class="mono">12:23pm</span> and the <span class="mono red">minuteIncrement</span> is set to <span class="mono blue">5</span> then the time will be rounded to <span class="mono">12:25pm</span>, if set to <span class="mono blue">30</span> then the time will be rounded to <span class="mono">12:30pm</span> or if set to <span class="mono blue">10</span> then the time will be rounded to <span class="mono">12:20pm</span>.<br><br>If the value is set to <span class="mono blue">0</span> or the value is greater than <span class="mono blue">59</span> the minute portion of the timepicker will be disabled.</td>
+								<td class="mono blue">0 - 59</td>
+							</tr>
+							<tr>
+								<td class="mono red">yearPicker</td>
+								<td class="mono">true</td>
+								<td><p>Enable/disable yearpicker functionality. Makes it much easier to change years.</p></td>
+								<td class="mono blue">true, false</td>
+							</tr>
+							</tr>
+							<tr>
+								<td class="mono red">format</td>
+								<td class="mono">d/m/Y</td>
+								<td>Visible date format. Does not affect the actual return value of the picker unless a <span class="mono blue">null</span> value is supplied to the <span class="mono red">inputOutputFormat</span>. Refer to <span class="mono red">inputOutputFormat</span> option below.<br><br>Supported format symbols are described in the <a href="#date-formatting">Dateformatting</a> section.</td>
+								<td class="mono blue"><i>Refer to the 'Dateformatting' section</i></td>
+							</tr>
+							<tr>
+								<td class="mono red">inputOutputFormat<a name="inputOutputFormat"/></td>
+								<td class="mono">T</td>
+								<td>
+									Define how the return value from the datetimepicker is interpreted after selecting a date. The default is timestamp based on milliseconds since 01/01/1970.
+									<br>
+									<br>
+									If <span class="mono blue">null</span> is supplied then the value of the <span class="mono red">format</span> option will be used.
+									<br>
+									<br>
+									Supported format symbols are described in the <a href="#date-formatting">Dateformatting</a> section, also refer to the <a href="#input-output">Input/Output value and format</a> example.
+									<br>
+									<br>
+									If you encounter problems with your formatting, open the browser development tools, as date-parsing errors are reported to the console.</td>
+								<td class="mono blue"><i>Refer to the 'Dateformatting' section</i></td>
+							</tr>
+							<tr>
+								<td class="mono red">startView</td>
+								<td class="mono">month</td>
+								<td>Initial view of the datetimepicker. (The <span class="mono red">time</span> view is only when <span class="mono red">timePicker</span> option is <span class="mono blue">true</span>)</td>
+								<td class="mono blue">time, month, year, decades</td>
+							</tr>
+							<tr>
+								<td class="mono red">allowEmpty</td>
+								<td class="mono">false</td>
+								<td>When set to <span class="mono blue">true</span> the datetimepicker intializes empty when no value was set (instead of starting at today). In addition the backspace and delete key will remove a value from the input. <br><br>Refer to the <a href="#allow-empty">Allow empty</a> example.</td>
+								<td class="mono blue">true, false</td>
+							</tr>
+							<tr>
+								<td class="mono red">positionOffset</td>
+								<td class="mono">{ x: 0, y: 0 }</td>
+								<td>Allows you to tweak the position at which the datetimepicker appears, relative to the input element. Formatted as an object with <span class="mono red">x</span> and <span class="mono red">y</span> properties. Values can be negative.</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">minDate</td>
+								<td class="mono">null</td>
+								<td>Minimum date allowed to pick. Blocks anything before. Formatted as an object with a <span class="mono red">date</span> and <span class="mono red">format</span> property, which allows specification in any format. <br><span class="mono red">{date:'[date-string]',format:'[date-string-interpretation-format]'}</span> <br><br>Also refer to the <a href="#date-range">Restricted date-range</a> example.</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">maxDate</td>
+								<td class="mono">null</td>
+								<td>Maximum date allowed to pick. Blocks anything after. Formatted as an object with a <span class="mono red">date</span> and <span class="mono red">format</span> property, which allows specification in any format. <br><span class="mono red">{date:'[date-string]',format:'[date-string-interpretation-format]'}</span> <br><br>Also refer to the <a href="#date-range">Restricted date-range</a> example.</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">debug</td>
+								<td class="mono">false</td>
+								<td>When enabled, calls made to the three event hooks, <span class="mono red">onShow</span>, <span class="mono red">onClose</span> and <span class="mono red">onSelect</span>  are reported to the browser development console.</td>
+								<td class="mono blue">true, false</td>
+							</tr>
+							<tr>
+								<td class="mono red">beforeShow</td>
+								<td class="mono">function(){}</td>
+								<td>Event hook triggered before the datetimepicker pops up.</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">onClose</td>
+								<td class="mono">function(){}</td>
+								<td>Event hook triggered after the datetimepicker is closed (destroyed).</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">onSelect</td>
+								<td class="mono">function(){}</td>
+								<td>Event hook triggered when a date is selected.<br>
+								(comes with 1 argument, the selected date returned in the <span class="mono red">inputOutputFormat</span> format)</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="mono red">onChange</td>
+								<td class="mono">function(){}</td>
+								<td>Event hook triggered when a date is selected and differs from the current date<br>
+								(comes with 1 argument, the new date returned in the <span class="mono red">inputOutputFormat</span> format)</td>
+								<td class="mono blue">&nbsp;</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="right"><a href="#top">top of page</a></div>
+				</div>
+				
+				<div class="inner-wrapper">
+					<h2>Methods</h2>
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<th>Method</th>
+							<th>Parameters</th>
+							<th>Description</th>
+							<th>Return&nbsp;Type</th>
+						</tr>
+						<tr>
+							<td class="mono red">refresh<a name="refresh-description"/></td>
+							<td class="mono">&nbsp;</td>
+							<td>Refreshes the DateTimePicker instance by re-binding to its target and correctly formating the input elements <span class="mono red">value</span> attribute. Refer to the <a href="#refreshed">Refresh Picker</a> example.</td>
+							<td class="mono blue">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="mono red">setDate<a name="setdate-description"/></td>
+							<td class="mono">String date / Date date</td>
+							<td>Updates the DateTimePicker instance current date and correctly formats the given date value, which must be supplied as either a JavaScript <span class="mono red">Date object</span> or as a date string in the format of the <span class="mono red">inputOutputFormat</span>. <br><br>To reset the DateTimePicker instance by calling the <span class="mono red">setDate()</span> method and not passing any value the picker will either clear the current date or will set it to today depending on if the <span class="mono red">allowEmpty</span> is set the <span class="mono blue">true</span> or <span class="mono blue">false</span>.<br><br>Refer to the <a href="#setdate">SetDate Method</a> example.</td>
+							<td class="mono blue">&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="mono red">getDate</td>
+							<td class="mono">String format (optional)</td>
+							<td>Returns the current date for each of the DateTimePicker instance's targets in the form of either a single JavaScript date object, a single formatted date string, an array of date objects or an array of formatted date strings. For each target without a value <span class="mono red">null</span> is returned. <br><br>If a format string is passed, the <span class="mono red">getDate</span> method will supply a string representation of the date or dates. If no parameter is passed the method will supply JavaScript date objects.<br><br>If the DateTimePicker instance is configured to be the time picker only then the date portion of the date will be set as <span class="mono">1st January</span> of the current year.</td>
+							<td class="mono blue">Date Object / Array of Date Objects<br>String / Array of Strings</td>
+						</tr>
+						<tr>
+							<td class="mono red">format</td>
+							<td class="mono">Date date, String format</td>
+							<td>Returns a string representation of the given date object depending on the supplied format string. Supported format symbols are described in the <a href="#date-formatting">Dateformatting</a> section.</td>
+							<td class="mono blue">String</td>
+						</tr>
+						<tr>
+							<td class="mono red">unformat</td>
+							<td class="mono">String date, String format</td>
+							<td>Returns a date object representation of the given formatted date string. The format string parameter must equal the format that the date string is supplied. Supported format symbols are described in the <a href="#date-formatting">Dateformatting</a> section.</td>
+							<td class="mono blue">Date Object</td>
+						</tr>					
+					</table>
+					<div class="right"><a href="#top">top of page</a></div>
+				</div>
+				
+				<div class="inner-wrapper">
+					<h2>Keyboard Shortcuts</h2>
+					<table border="0" cellspacing="0" cellpadding="0" width="100%">
+						<col width="15%" />
+						<col width="85%" />
+						<tr>
+							<th>Key</th>
+							<th>Action</th>
+						</tr>
+						<tr>
+							<td class="mono red">Tab</td>
+							<td>Closes the Date Time Picker without selecting a date or time.</td>
+						</tr>
+						<tr>
+							<td class="mono red">Escape</td>
+							<td>Closes the Date Time Picker without selecting a date or time.</td>
+						</tr>
+						<tr>
+							<td class="mono red">Enter</td>
+							<td>Selects the current chosen year, month, date or time. In the date or time view the picker will return the select date and / or time.</td>
+						</tr>
+						<tr>
+							<td class="mono red">Space Bar</td>
+							<td>Changes the view between date, month or year.</td>
+						</tr>	
+						<tr>
+							<td class="mono red">Home</td>
+							<td>Navigates to the current day, month or year depending on which view is selected.</td>
+						</tr>	
+						<tr>
+							<td class="mono red">Left Arrow</td>
+							<td>Navigates between days, months, years, hour or minutes depending on which view is selected.</td>
+						</tr>	
+						<tr>
+							<td class="mono red">Right Arrow</td>
+							<td>Navigates between days, months, years, hour or minutes depending on which view is selected.</td>
+						</tr>	
+						<tr>
+							<td class="mono red">Up Arrow</td>
+							<td>Navigates between days, months or years depending on which view is selected. If the time picker is visible will increase the hours or minutes depending of which has focus.</td>
+						</tr>	
+						<tr>
+							<td class="mono red">Down Arrow</td>
+							<td>Navigates between days, months or years depending on which view is selected. If the time picker is visible will decrease the hours or minutes depending of which has focus.</td>
+						</tr>				
+					</table>
+					<div class="right"><a href="#top">top of page</a></div>
+				</div>
+				
+				<div class="inner-wrapper">
+					<a name="date-formatting"></a>
+					<h2>Date-formatting</h2>
+					<p>The date-formatting functions featured in the DateTimePicker support the symbols listed below. Unsupported symbols will just be output as provided. To use the supported symbols literally, escape them with <span class="mono red">\\</span>.</p>
+					<table border="0" cellspacing="0" cellpadding="0" width="100%">
+						<col width="5%" />
+						<col width="75%" />
+						<col width="20%" />
+						<tr>
+							<th>Character</th>
+							<th>Description</th>
+							<th>Return Value</th>
+						</tr>
+						<tr>
+							<td class="mono blue">y</td>
+							<td>Two digit representation of a year</td>
+							<td class="mono">Eg. 09, 12</td>
+						</tr>
+						<tr>
+							<td class="mono blue">Y</td>
+							<td>Four digit representation of a year</td>
+							<td class="mono">Eg. 2009, 2012</td>
+						</tr>
+						<tr>
+							<td class="mono blue">m</td>
+							<td>Numeric representation of a month, with leading zeros</td>
+							<td class="mono">01-12</td>
+						</tr>
+						<tr>
+							<td class="mono blue">n</td>
+							<td>Numeric representation of a month, without leading zeros</td>
+							<td class="mono">1-12</td>
+						</tr>
+						<tr>
+							<td class="mono blue">M</td>
+							<td>A short textual representation of a month, three letters</td>
+							<td class="mono">Jan - Dec</td>
+						</tr>
+						<tr>
+							<td class="mono blue">F</td>
+							<td>A full textual representation of a month, such as January or March</td>
+							<td class="mono">January - December</td>
+						</tr>
+						<tr>
+							<td class="mono blue">d</td>
+							<td>Day of the month, 2 digits with leading zeros</td>
+							<td class="mono">01-31</td>
+						</tr>
+						<tr>
+							<td class="mono blue">j</td>
+							<td>Day of the month without leading zeros</td>
+							<td class="mono">1-31</td>
+						</tr>
+						<tr>
+							<td class="mono blue">D</td>
+							<td> A textual representation of a day, three letters</td>
+							<td class="mono">Mon - Sun</td>
+						</tr>
+						<tr>
+							<td class="mono blue">l</td>
+							<td>A full textual representation of the day of the week (lowercase 'L')</td>
+							<td class="mono">Sunday - Saturday</td>
+						</tr>
+						<tr>
+							<td class="mono blue">G</td>
+							<td> 24-hour format of an hour without leading zeros</td>
+							<td class="mono">0-23</td>
+						</tr>
+						<tr>
+							<td class="mono blue">H</td>
+							<td>24-hour format of an hour with leading zeros</td>
+							<td class="mono">00-23</td>
+						</tr>
+						<tr>
+							<td class="mono blue">g</td>
+							<td>12-hour format of an hour without leading zeros</td>
+							<td class="mono">1-12</td>
+						</tr>
+						<tr>
+							<td class="mono blue">h</td>
+							<td>12-hour format of an hour with leading zeros</td>
+							<td class="mono">01-12</td>
+						</tr>
+						<tr>
+							<td class="mono blue">a</td>
+							<td>Lowercase Ante meridiem and Post meridiem</td>
+							<td class="mono">am, pm</td>
+						</tr>
+						<tr>
+							<td class="mono blue">A</td>
+							<td>Uppercase Ante meridiem and Post meridiem</td>
+							<td class="mono">AM, PM</td>
+						</tr>
+						<tr>
+							<td class="mono blue">i</td>
+							<td>Minutes with leading zeros</td>
+							<td class="mono">00-59</td>
+						</tr>
+						<tr>
+							<td class="mono blue">s</td>
+							<td>Seconds, with leading zeros</td>
+							<td class="mono">00-59</td>
+						</tr>
+						<tr>
+							<td class="mono blue">U</td>
+							<td>Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)</td>
+							<td class="mono">Eg. 2073614</td>
+						</tr>
+						<tr>
+							<td class="mono blue">T</td>
+							<td>Milliseconds since January 1 1970 00:00:00 GMT (Easily used to create a <span class="mono red">JavaScript Date object</span> for example <span class="mono blue">new Date(1337574801020)</span>)</td>
+							<td class="mono">Eg. 1337574801020</td>
+						</tr>
+						<tr>
+							<td class="mono blue">S</td>
+							<td>The suffix for the day of the month (as in 1st, 2nd, 23rd or 25th)</td>
+							<td class="mono">st, nd, rd, th </td>
+						</tr>			
+					</table>
+					<div class="right"><a href="#top">top of page</a></div>
+				</div>
+				<div class="inner-wrapper">					
+					<p>The following are examples of resulting format output:</p>
+					
+					<ul class="indent">
+						<li><span class="fieldlabel mono">F j, Y g:i a</span> November 6, 2010 12:50 am</li>
+						<li><span class="fieldlabel mono">F j, Y</span> November 6, 2010</li>
+						<li><span class="fieldlabel mono">F, Y</span> November, 2010</li>
+						<li><span class="fieldlabel mono">g:i a</span> 12:50 am</li>
+						<li><span class="fieldlabel mono">g:i:s a</span> 12:50:48 am</li>
+						<li><span class="fieldlabel mono">l, F jS, Y</span> Saturday, November 6th, 2010</li>
+						<li><span class="fieldlabel mono">M j, Y @ G:i</span> Nov 6, 2010 @ 0:50</li>
+						<li><span class="fieldlabel mono">d/m/Y \a\t g:i A</span> 01/05/2012 at 12:50 AM</li>
+						<li><span class="fieldlabel mono">d/m/Y \a\t g:ia</span> 01/05/2012 at 12:50am</li>
+						<li><span class="fieldlabel mono">d/m/Y g:i:s A</span> 01/05/2012 12:50:48 AM</li>
+						<li><span class="fieldlabel mono">d/m/Y</span> 01/05/2012</li>
+					</ul>
+					<div class="right"><a href="#top">top of page</a></div>
+				</div>
+				<div class="inner-wrapper">
+					<a name="create-theme"></a>
+					<h2>Creating your own theme</h2>
+					<p>The DateTimePicker generates very clean XHTML, with many class-hooks for CSS. Referring to the existing themes will help, however below are several notes:</p>
+					<ul>
+						<li><s>The <span class="mono red">previous</span> and <span class="mono red">next</span> elements have textual contents (<span class="mono red">&laquo;</span>, <span class="mono red">&raquo;</span>) by default; as done in the additional themes, these can be hidden using (for example) <span class="mono blue">text-indent:-999px</span> style</s></li>
+						<li>The <span class="mono red">body</span> contains either the <span class="mono red">years</span>, <span class="mono red">months</span>, <span class="mono red">days</span> or <span class="mono red">time</span> class.</li>
+						<li>The class <span class="mono red">selected</span> is added to the <span class="mono blue">date/month/year</span> representing the current value.</li>
+						<li>The class <span class="mono red">unavailable</span> is added to any <span class="mono blue">date/month/year</span> which is outside the configured range (using the <span class="mono red">minDate</span> and <span class="mono red">maxDate</span> options).</li>
+						<li>Every <span class="mono red">day</span> element also has a <span class="mono red">day0</span> ... <span class="mono red">day6</span> class added, indicating which day of the week it is (<span class="mono blue">0</span> being <span class="mono blue">Sunday</span> through <span class="mono blue">6</span> being <span class="mono blue">Saturday</span>).</li>
+						<li>Every <span class="mono red">week</span> element also has a <span class="mono red">week0</span> ... <span class="mono red">week5</span> class added, indicating which&nbsp;row of weeks it is&nbsp;(there is always <span class="mono blue">6</span> weeks displayed).</li>
+						<li>Every <span class="mono red">month</span> element also has a <span class="mono red">month1</span> ... <span class="mono red">month12</span> class added, indicating which month of the year it is.</li>
+						<li>Every <span class="mono red">year</span> element also has a <span class="mono red">year</span><span class="mono blue">@</span> class added, where <span class="mono blue">@</span> simply is the index of the displayed year (<span class="mono blue">0</span> being the first year).</li>
+					</ul>
+					<div class="right"><a href="#top">top of page</a></div>
+				</div>
+			</div>
+			<a name="examples"></a>
+			<h1>Examples</h1>
+			
+		<div class="inner-content-wrapper">
+			<div class="inner-wrapper">
+				<a name="theming"></a>
+				<h2>Theming</h2>
+				<p></p>
+				<div class="inner-wrapper">
+					<span class="fieldlabel medium">Date picker with the <span class="mono blue">default</span> CSS theme:</span>
+					<input type="text" class="demo-css-theme">
+				</div>
+				<div class="inner-wrapper">
+					<span class="fieldlabel medium">Date picker with the <span class="mono blue">yellow</span> CSS theme:</span>
+					<input type="text" class="demo-css-theme-yellow">
+				</div>
+				<div class="inner-wrapper">
+					<span class="fieldlabel medium">Date picker with the <span class="mono blue">green</span> CSS theme:</span>
+					<input type="text" class="demo-css-theme-green">
+				</div>
+				<div class="inner-wrapper">
+					<span class="fieldlabel medium">Date picker with the <span class="mono blue">blue</span> CSS theme:</span>
+					<input type="text" class="demo-css-theme-blue">
+				</div>
+				<div class="inner-wrapper">
+					<span class="fieldlabel medium">Date picker with the <span class="mono blue">red</span> CSS theme:</span>
+					<input type="text" class="demo-css-theme-red">
+				</div>
+				<div class="inner-wrapper">
+					<span class="fieldlabel medium">Date picker with the <span class="mono blue">purple</span> CSS theme:</span>
+					<input type="text" class="demo-css-theme-purple">
+				</div>
+				<div class="inner-wrapper">
+					<span class="fieldlabel medium">Date picker with the <span class="mono blue">orange</span> CSS theme:</span>
+					<input type="text" class="demo-css-theme-orange">
+				</div>
+
+				<div class="inner-wrapper">
+					<strong>Javascript</strong>
+<pre><code class="javascript">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-css-theme'</span>, { timePicker: <span class="literal">true</span>, timePickerFormat:<span class="number">24</span>, format: <span class="string">'d/m/Y @ H:i'</span>, allowEmpty:<span class="literal">true</span> });
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-css-theme-yellow'</span>, { pickerClass: <span class="string">'datetimepicker-yellow'</span>, timePicker: <span class="literal">true</span>, timePickerFormat:<span class="number">12</span>, format: <span class="string">'d/m/Y @ h:i a'</span>, allowEmpty:<span class="literal">true</span> });
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-css-theme-green'</span>, { pickerClass: <span class="string">'datetimepicker-green'</span>, timePicker: <span class="literal">true</span>, timePickerFormat:<span class="number">24</span>, format: <span class="string">'d/m/Y @ H:i'</span>, allowEmpty:<span class="literal">true</span>  });
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-css-theme-blue'</span>, { pickerClass: <span class="string">'datetimepicker-blue'</span>, timePicker: <span class="literal">true</span>, timePickerFormat:<span class="number">12</span>, format: <span class="string">'d/m/Y @ h:i a'</span>, allowEmpty:<span class="literal">true</span>  });
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-css-theme-red'</span>, { pickerClass: <span class="string">'datetimepicker-red'</span>, timePicker: <span class="literal">true</span>, timePickerFormat:<span class="number">24</span>, format: <span class="string">'d/m/Y @ H:i'</span>, allowEmpty:<span class="literal">true</span>  });
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-css-theme-purple'</span>, { pickerClass: <span class="string">'datetimepicker-purple'</span>, timePicker: <span class="literal">true</span>, timePickerFormat:<span class="number">12</span>, format: <span class="string">'d/m/Y @ h:i a'</span>, allowEmpty:<span class="literal">true</span>  });
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-css-theme-orange'</span>, { pickerClass: <span class="string">'datetimepicker-orange'</span>, timePicker: <span class="literal">true</span>, timePickerFormat:<span class="number">24</span>, format: <span class="string">'d/m/Y @ H:i'</span>, allowEmpty:<span class="literal">true</span>  });
+}</code></pre>
+					<strong>HTML</strong>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">span</span>&gt;</span>Date picker with the default CSS theme:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-css-theme"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Date picker with the yellow CSS theme:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-css-theme-yellow"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Date picker with the green CSS theme:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-css-theme-green"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Date picker with the blue CSS theme:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-css-theme-blue"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Date picker with the red CSS theme:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-css-theme-red"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Date picker with the purple CSS theme:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-css-theme-purple"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Date picker with the orange CSS theme:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-css-theme-orange"</span> /&gt;</span></code></pre>
+				</div>
+				<div class="right"><a href="#top">top of page</a></div>
+			</div>
+			
+			<div class="inner-wrapper">
+				<a name="allow-empty"></a>
+				<h2>Allow empty</h2>				
+				<p>Allowing no value by setting the <span class="mono red">allowEmpty</span> option to <span class="mono blue">true</span>. Press backspace or delete to clear the selected date again and if the input remains to have focus the picker can be reopened by double clicking.</p>
+
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Date picker starting with and allowing no value:</span>
+					<input type="text" class="demo-allow-empty">
+				</div>
+				<div class="inner-wrapper">
+				<strong>Javascript</strong>
+<pre><code class="javascript">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-allow-empty'</span>, {
+		pickerClass: <span class="string">'datetimepicker'</span>,
+		allowEmpty: <span class="literal">true</span>
+	});
+}</code></pre>
+					<strong>HTML</strong>
+					<pre><code class="xml"><span class="tag">&lt;<span class="title">span</span>&gt;</span>Date picker starting with and allowing no value:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">name</span>=<span class="value">"date-allow-empty"</span> <span class="attribute">type</span>=<span class="value">"text"</span> /&gt;</span></code></pre>
+				</div>
+				<div class="right"><a href="#top">top of page</a></div>
+			</div>
+			
+			<div class="inner-wrapper">
+				<a name="year-time-picking"></a>
+				<h2>Yearpicking / Timepicking</h2>
+				<p>The examples below show how you can enable or disable yearpicking and timepicking. With the time picker, use either the mouse wheel or arrow keys to change the time.</p>
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Datepicker without yearpicker:</span>
+					<input type="text" class="demo-noyear">
+				</div>
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Datepicker with timepicker:</span>
+					<input type="text" class="demo-time">
+				</div>
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Timepicker only (12 hour Selector):</span>
+					<input type="text" id="demo-time-only">
+				</div>
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Timepicker only (24 hour Selector):</span>
+					<input type="text" id="demo-time-only-24">
+				</div>
+			
+				<div class="inner-wrapper">
+					<strong>Javascript</strong>
+<pre><code class="javascript">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-noyear'</span>, { 
+		pickerClass: <span class="string">'datetimepicker'</span>, 
+		yearPicker: <span class="literal">false</span>,
+		allowEmpty:<span class="literal">true</span> 
+	});
+	
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-time'</span>, { 
+		pickerClass: <span class="string">'datetimepicker'</span>, 
+		timePicker: <span class="literal">true</span>, 
+		timePickerFormat:<span class="number">12</span>, 
+		format: <span class="string">'d/m/Y @ h:i a'</span>,
+		allowEmpty:<span class="literal">true</span> 		
+	});
+	
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'#demo-time-only'</span>, { 
+		pickerClass: <span class="string">'datetimepicker'</span>, 
+		timePicker: <span class="literal">true</span>, 
+		timePickerOnly: <span class="literal">true</span>, 
+		timePickerFormat:<span class="number">12</span>, 
+		format: <span class="string">'h:i a / H:i (24\\hr)'</span>,
+		allowEmpty:<span class="literal">true</span> 
+	});
+	
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'#demo-time-only-24'</span>, { 
+		pickerClass: <span class="string">'datetimepicker'</span>, 
+		timePicker: <span class="literal">true</span>, 
+		timePickerOnly: <span class="literal">true</span>, 
+		timePickerFormat:<span class="number">24</span>, 
+		format: <span class="string">'g:i a / G:i (24\\hr)'</span>,
+		allowEmpty:<span class="literal">true</span> 
+	});
+}</code></pre>
+					<strong>HTML</strong>
+					<pre><code class="xml"><span class="tag">&lt;<span class="title">span</span>&gt;</span>Datepicker without yearpicker:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-noyear"</span> /&gt;</span>
+					
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Datepicker with timepicker:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-time"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Timepicker only (12 hour Selector):<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"demo-time-only"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Timepicker only (24 hour Selector):<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"demo-time-only-24"</span> /&gt;</span></code></pre>
+				</div>
+				<div class="right"><a href="#top">top of page</a></div>
+			</div>
+			
+			<div class="inner-wrapper">
+				<a name="toggle"></a>
+				<h2>Toggle by Element</h2>
+				<p>Toggle the DateTimePicker through a separate element or / and on focus of the input field. Try clicking the calendar icon and the input field.</p>
+				<p>(The first two examples demonstrate the use of a class name selector for both the <span class="mono red">input-target-selector</span> and <span class="mono red">toggleElements</span>)</p>
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Toggler only:</span>
+					<input type="text" class="date-toggled">
+					<div class="date-toggler"/>
+				</div>
+				
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Toggler only (second):</span>
+					<input type="text" class="date-toggled" disabled="disabled">
+					<img class="date-toggler" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAWdEVYdENyZWF0aW9uIFRpbWUAMDQvMjYvMTJCLJ+iAAAD1klEQVQ4jVWUX2tdRRTFf3vPPuee5CZNUqKtKbZFKVT8g4Ig0qeCvviifjg/gZ9BqA8iSJXig/gHWiqpbdPGGtI0bdPce86cM3v7cJIaB4ZhHvbaa9ZeayS6g9gZDnm0+TcLaqycO83O1mPUMqurr6GaaOd7DDRMlxqGx/8Q0ympOUM5fID0ibLSsH7qFItVg9z87U5c37zNG+trrC6d4odfbnN+ZYm33z3Pdz/9SfHg6kdvsnnnEfd2n3HlvQ2eDTN+v/WcS2dXeOvCKt/8fJfTq6/yzsV17I/b29x7qCxPlM6F+7tTJmRe7zJbey2E0oWw86xna2fC5dmEAy/ce1RYW17mSWvc32nYex5o2cVy7PH4ufHw8T7V0wN253MWZxn7a5vDzgH49e42Wwct+52wuf2EgzJjv4X7e08ZFoyDSMyePmLjTIN89fW1+PbGQORdkgqHaYXIhzQpQZ4CSlTPKLqID8aU53Tm5OE0jR7SVwfkfo1lfcHVK5ewtfVVrn64T9LLzLsemwReTqEkRAEgfAmPQkpKsEx4kFQo3iCyTkqC6jqrq0vYObnLp598gOoCVT0h9xlNjuBEjIAiQhAIwvESEcowNhn6QgC3bt7Con6F/RnUC3Bh/Qy9B6ZCAB6ByAmYYGwi4yVCMIX7Dx7QzltymmKlTVRUmBdKn/EhkSkg/pLV8SkI7o6o4D7Sl7rBUCZqRD9gkhIeA6EB0jGgKAIeiEAIeAgigQKOk1DiSJIYMuE9JTLuPVrSIUUziIHUJIFIFVotIJrIdZAmQa0KUlNIYBMqnVCHkSYKKeg9IxWYeEAoQw99W+i6HqmCEKNEYTFnDq59jw9C8/lniA+08x48qETpZwNlANMaxVA/GqWqYLUxaRoWFESCsrAIntj78QZPr9+AAo3VpKpCm5qojcmkRnXUFsBEhIigFCfnTO4GKgquRidCVFB9/D6LXqHuzGYdOQkpJWIYwBLujupoWhs9BapKSglLQZ8SaXBWukzfGGe/+BJtC8UEF8VE0MExEvVkgsgJhiCIjF26rh1NGgbFkcFHbRca3APrWpzAzPB+oIjQtvHS6O6OpmS4jwzNDFGoAkSVvkqkykg500iMfh4ciuMCg45yHe+qqjB3J8JfPllEUFPCj80MoQmOEmNVQpMACgJmhpnR9z1d12GlFKqqYj6fs729jbtjZkQ4J5fIiRyrEv5f1kspRzWBNU1Dzpm6rl8W9X3mRP34OcQIICJjggIigpQqUkq0bcva2hp28eJFtra2ePHiBaqKqh6xi/8BHk/xJFOAiFHH6XTKxsYG/wIS/BWNEadXjQAAAABJRU5ErkJggg==" />
+				</div>
+				
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Toggler and on input focus:</span>
+					<input type="text" class="date-toggled-focus">
+					<div class="date-toggler-focus"/>
+				</div>
+				<div class="inner-wrapper">
+					<strong>Javascript</strong>
+<pre><code class="javascript">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.date-toggled'</span>, {
+		pickerClass: <span class="string">'datetimepicker'</span>,
+		allowEmpty: <span class="literal">true</span>,
+		toggleElements: <span class="string">'.date-toggler'</span>
+	});
+	
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.date-toggled-focus'</span>, {
+		pickerClass: <span class="string">'datetimepicker'</span>,
+		allowEmpty: <span class="literal">true</span>,
+		toggleElementsOnly:<span class="literal">false</span>,
+		toggleElements: <span class="string">'.date-toggler-focus'</span>
+	});
+}</code></pre>
+					<strong>HTML</strong>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">span</span>&gt;</span>Toggler only:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"date-toggled"</span> /&gt;</span> <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"date-toggler"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Toggler only (second):<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"date-toggled"</span> <span class="attribute">disabled</span>=<span class="value">"disabled"</span> /&gt;</span> 
+<span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6o..."</span> <span class="attribute">class</span>=<span class="value">"date-toggler"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Toggler and on input focus:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"date-toggled-focus"</span> /&gt;</span> <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"date-toggler-focus"</span> /&gt;</span></code></pre>
+				</div>
+				<div class="right"><a href="#top">top of page</a></div>
+			</div>
+			
+			<div class="inner-wrapper">
+				<a name="date-range"></a>
+				<h2>Restricted date-range</h2>
+				<p>An example showing how you can restrict the input range of dates.</p>
+				
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Datepicker restricted to dates between <span class="mono blue date-ranged-from">00-00-0000</span> and <span class="mono blue date-ranged-to">00-00-0000</span>:</span>
+					<input type="text" class="demo-ranged">
+				</div>
+				
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Datepicker restricted to dates between <span class="mono blue date-ranged-year-from">00-00-0000</span> and <span class="mono blue date-ranged-year-to">00-00-0000</span>:</span>
+					<input type="text" class="demo-ranged-year">
+				</div>
+				
+				<div class="inner-wrapper">
+					<strong>Javascript</strong>
+<pre><code class="javascript">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-ranged'</span>, {
+		pickerClass: <span class="string">'datetimepicker'</span>,
+		yearPicker: <span class="literal">false</span>,
+		format: <span class="string">'jS F Y'</span>,
+		minDate: { date: <span class="string">'<span class="date-ranged-from">00-00-0000</span>'</span>, format: <span class="string">'d-m-Y'</span> },
+		maxDate: { date: <span class="string">'<span class="date-ranged-to">00-00-0000</span>'</span>, format: <span class="string">'d-m-Y'</span> }
+	});
+
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-ranged-year'</span>, {
+		pickerClass: <span class="string">'datetimepicker'</span>,															
+		timePickerFormat:<span class="number">12</span>,
+		format: <span class="string">'d/m/Y @ h:i a'</span>,
+		timePicker:<span class="literal">true</span>,
+		minDate: { date: <span class="string">'<span class="date-ranged-year-from">00-00-0000</span>'</span>, format: <span class="string">'d-m-Y'</span> },
+		maxDate: { date: <span class="string">'<span class="date-ranged-year-to">00-00-0000</span>'</span>, format: <span class="string">'d-m-Y'</span> }
+	});
+}</code></pre>
+					<strong>HTML</strong>
+					<pre><code class="xml"><span class="tag">&lt;<span class="title">span</span>&gt;</span>Datepicker restricted to dates between <span class="date-ranged-from">00-00-0000</span> and <span class="date-ranged-to">00-00-0000</span>:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-ranged"</span> /&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Datepicker restricted to dates between <span class="date-ranged-year-from">25-04-2011</span> and <span class="date-ranged-year-to">00-00-0000</span>:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-ranged-year"</span> /&gt;</span></code></pre>
+				</div>
+				<div class="right"><a href="#top">top of page</a></div>
+			</div>
+			
+			<div class="inner-wrapper">
+				<a name="input-output"></a>
+				<h2>Input/Output value and format</h2>
+				<p>These examples show how you can set the starting value by simply putting it in the input <span class="mono red">value</span> attribute or using the <span class="mono red">startDate</span> option. Additionally, you may use the option <span class="mono red">inputOutputFormat</span> to specify how to interpret this value, and how it will be output again after picking a date.</p>
+				
+				<div class="inner-wrapper">
+					<span class="fieldlabel long">Starting at <span class="mono blue">21/05/2012 @ 5:00pm</span> supplied via the <span class="mono red">startDate</span> option in the <span class="mono red">Y-m-d H:i:s</span> format:</span>
+					<input type="text" class="demo-value">
+					<div id="formatted-output-value" class="response-label"></div>
+				</div>
+				<div class="inner-wrapper">
+					<span class="fieldlabel long">Starting at <span class="mono blue">21/05/2012</span> and supplied via the input value attibute and in the <span class="mono red">T</span> format:</span>
+					<input type="text" value="1337574801020" class="demo-value2">
+					<div id="default-output-value" class="response-label"></div>
+				</div>
+				
+				<div class="inner-wrapper">
+					<strong>Javascript</strong>
+<pre><code class="javascript">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-value'</span>, {
+		pickerClass: <span class="string">'datetimepicker'</span>,
+		timePicker:<span class="literal">true</span>,
+		timePickerFormat:<span class="number">12</span>,
+		inputOutputFormat: <span class="string">'Y-m-d H:i:s'</span>,
+		format:<span class="string">'jS M Y @ h:i a'</span>,
+		startDate:<span class="string">'2012-05-21 17:00:00'</span>,
+		onSelect: <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+			<span class="keyword">var</span> dt = arguments[<span class="number">0</span>];
+			<span class="keyword">var</span> lbl = document.getElementById(<span class="string">'formatted-output-value'</span>);
+			lbl.style.display = <span class="string">'block'</span>;
+			lbl.innerHTML = <span class="string">'Custom inputOutputFormat return value: '</span>+dt+<span class="string">' Notice the difference between this format and that within the input field.'</span>;
+		}
+	});
+
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-value2'</span>, {
+		pickerClass: <span class="string">'datetimepicker'</span>,
+		onSelect: <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+			<span class="keyword">var</span> dt = arguments[<span class="number">0</span>];
+			<span class="keyword">var</span> jsdt = <span class="keyword">new</span> Date(parseInt(dt));
+			<span class="keyword">var</span> lbl = document.getElementById(<span class="string">'default-output-value'</span>);
+			lbl.style.display = <span class="string">'block'</span>;
+			lbl.innerHTML = <span class="string">'Default return value: '</span>+dt+<span class="string">' as a millisecond TimeStamp and converted to a Date object: '</span>+jsdt.toString();
+		}
+	});
+}</code></pre>
+					<strong>HTML</strong>
+<pre><code class="xml"><span class="tag">&lt;<span class="title">span</span>&gt;</span>Starting at 21/05/2012 @ 5:00pm supplied via the startDate option in the Y-m-d H:i:s format:<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-value"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"default-output-value"</span> <span class="attribute">class</span>=<span class="value">"response-label"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Starting at 21/05/2012 and supplied via the input value attibute and in the T format:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> 
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">value</span>=<span class="value">"1337574801020"</span> <span class="attribute">class</span>=<span class="value">"demo-value2"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"formatted-output-value"</span> <span class="attribute">class</span>=<span class="value">"response-label"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></pre>
+				</div>
+				<div class="right"><a href="#top">top of page</a></div>
+			</div>
+			
+			<div class="inner-wrapper">
+				<a name="localised"></a>
+				<h2>Localised Month/Day labels</h2>
+				<p>This example shows how simple it is to change the month/day labels in another language.</p>
+				
+				<div class="inner-wrapper">
+					<span class="fieldlabel">Datepicker with French labels:</span>
+					<input type="text" class="demo-french">
+				</div>
+				<div class="inner-wrapper">
+					<strong>Javascript</strong>
+<pre><code class="javascript">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'.demo-french'</span>, {
+		pickerClass: <span class="string">'datetimepicker'</span>,
+		days: [<span class="string">'Dimanche'</span>, <span class="string">'Lundi'</span>, <span class="string">'Mardi'</span>, <span class="string">'Mercredi'</span>, <span class="string">'Jeudi'</span>, <span class="string">'Vendredi'</span>, <span class="string">'Samedi'</span>],
+		months: [<span class="string">'Janvier'</span>, <span class="string">'F&egrave;vrier'</span>, <span class="string">'Mars'</span>, <span class="string">'Avril'</span>, <span class="string">'Mai'</span>, <span class="string">'Juin'</span>,<span class="string">'Juillet'</span>, <span class="string">'Ao&ucirc;t'</span>, <span class="string">'Septembre'</span>, <span class="string">'Octobre'</span>, <span class="string">'Novembre'</span>, <span class="string">'D&egrave;cembre'</span>]
+	});
+}</code></pre>
+					<strong>HTML</strong>
+					<pre><code class="xml"><span class="tag">&lt;<span class="title">span</span>&gt;</span>Datepicker with French labels:<span class="tag">&lt;/<span class="title">span</span>&gt;</span> <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">class</span>=<span class="value">"demo-french"</span> /&gt;</span></code></pre>
+				</div>
+				<div class="right"><a href="#top">top of page</a></div>
+			</div>
+			
+			<div class="inner-wrapper">
+				<a name="setdate"></a>
+				<h2>SetDate Method</h2>
+				<p>This example show how a DateTimePicker instance can have its current date set using JavaScript to call the <span class="mono red">setDate</span> method.</p>
+				
+				<div class="inner-wrapper">
+					<input type="text" id="demo-set-date">
+				</div>
+				
+				<div class="inner-wrapper">
+					<input type="button" id="button-set-date-string" value="Set Date"/>
+					<span class="fieldlabel">Setting the new date by passing a <span class="mono red">string</span> value formatted as <span class="mono red">inputOutputFormat</span></span>					
+				</div>
+				<div class="inner-wrapper">
+					<input type="button" id="button-set-date-date" value="Set Date"/>
+					<span class="fieldlabel">Setting the new date by passing a <span class="mono red">JavaScript Date object</span></span>
+				</div>
+				<div class="inner-wrapper">
+					<input type="button" id="button-set-date-clear" value="Set Date"/>
+					<span class="fieldlabel">Reset DateTimePicker instance by not passing any value (If the picker doesn't allow an empty field then the value will be set to today).</span>
+				</div>
+				<div class="inner-wrapper">
+					<strong>Javascript</strong>
+<pre><code class="javascript">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'#demo-set-date'</span>, {
+		pickerClass: <span class="string">'datetimepicker'</span>,
+		timePicker:<span class="literal">true</span>,
+		format:<span class="string">'d/m/yy @ h:i a'</span>
+	});
+		
+	<span class="keyword">var</span> btn = document.getElementById(<span class="string">'button-set-date-string'</span>);
+	btn.onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+		<span class="keyword">var</span> from = <span class="keyword">new</span> Date();
+		<span class="keyword">var</span> to = <span class="keyword">new</span> Date((from.getFullYear() + <span class="number">1</span>), from.getMonth(), from.getDate());
+		<span class="keyword">var</span> dte = <span class="keyword">new</span> Date(from.getTime() + Math.random() * (to.getTime() - from.getTime())); <span class="comment">//Get a random date between today and today + 1 year</span>
+		
+		<span class="keyword">var</span> fmtdte = dtp.format(dte, dtp.options.inputOutputFormat); <span class="comment">//The date must be in the format set by the inputOuputFormat option</span>
+		dtp.setDate(fmtdte); <span class="comment">// Pass the formatted string</span>
+	}
+		
+	<span class="keyword">var</span> btn = document.getElementById(<span class="string">'button-set-date-date'</span>);
+	btn.onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>	
+		<span class="keyword">var</span> from = <span class="keyword">new</span> Date();
+		<span class="keyword">var</span> to = <span class="keyword">new</span> Date((from.getFullYear() + <span class="number">1</span>), from.getMonth(), from.getDate());
+		<span class="keyword">var</span> dte = <span class="keyword">new</span> Date(from.getTime() + Math.random() * (to.getTime() - from.getTime())); <span class="comment">//Get a random date between today and today + 1 year</span>
+		
+		dtp.setDate(dte); <span class="comment">// Pass the new Date object</span>
+	}
+	
+	<span class="keyword">var</span> btn = document.getElementById(<span class="string">'button-set-date-clear'</span>);
+	btn.onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>	
+		dtp.setDate(); <span class="comment">// Reset date by calling the method and not passing a value</span>
+	}
+
+}</code></pre>
+					<strong>HTML</strong>
+					<pre><code class="xml"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"demo-set-date"</span> /&gt;</span> 
+					
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">id</span>=<span class="value">"button-set-date-string"</span> <span class="attribute">value</span>=<span class="value">"Set Date"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Setting the new date by passing a string value formatted as inputOutputFormat<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">id</span>=<span class="value">"button-set-date-date"</span> <span class="attribute">value</span>=<span class="value">"Set Date"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Setting the new date by passing a JavaScript Date object<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">id</span>=<span class="value">"button-set-date-clear"</span> <span class="attribute">value</span>=<span class="value">"Set Date"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Reset DateTimePicker instance by not passing any value (If the picker doesn't allow an empty field then the value will be set to today)<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+</code></pre>
+				</div>
+				<div class="right"><a href="#top">top of page</a></div>
+				</div>
+			
+			<div class="inner-wrapper">
+				<a name="refreshed"></a>
+				<h2>Refresh Method</h2>
+				<p>This examples show how a DateTimePicker instance can be refreshed, correctly formatting a new value by calling the <span class="mono red">refresh</span> method.</p>
+				
+				<div class="inner-wrapper">
+					<input type="text" id="demo-refresh">
+				</div>
+				
+				<div class="inner-wrapper">
+					<input type="button" id="button-refresh-value" value="Call Refresh"/>
+					<span class="fieldlabel">Call refresh after setting a new date using the input elements <span class="mono red">value</span> attribute</span>
+				</div>
+				<div class="inner-wrapper">
+					<input type="button" id="button-refresh-clear" value="Call Refresh"/>
+					<span class="fieldlabel">Call refresh after clearing the input elements <span class="mono red">value</span> attribute</span>
+				</div>
+				<div class="inner-wrapper">
+					<strong>Javascript</strong>
+<pre><code class="javascript">window.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+	<span class="keyword">var</span> dtp = <span class="keyword">new</span> DateTimePicker(<span class="string">'#demo-refresh'</span>, {
+		pickerClass: <span class="string">'datetimepicker'</span>,
+		timePicker:<span class="literal">true</span>,
+		format:<span class="string">'d/m/yy @ h:i a'</span>,
+		allowEmpty:<span class="literal">true</span>
+	});
+				
+	<span class="keyword">var</span> btn = document.getElementById(<span class="string">'button-refresh-value'</span>);
+	btn.onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+		<span class="keyword">var</span> from = <span class="keyword">new</span> Date();
+		<span class="keyword">var</span> to = <span class="keyword">new</span> Date((from.getFullYear() + <span class="number">1</span>), from.getMonth(), from.getDate());
+		<span class="keyword">var</span> dte = <span class="keyword">new</span> Date(from.getTime() + Math.random() * (to.getTime() - from.getTime())); <span class="comment">//Get a random date between today and today + 1 year</span>
+		
+		document.getElementById(<span class="string">'demo-refresh'</span>).value = dtp.format(dte, dtp.options.inputOutputFormat); <span class="comment">//Set the input value attribute.</span>
+		dtp.refresh();
+	}
+	
+	<span class="keyword">var</span> btn = document.getElementById(<span class="string">'button-refresh-clear'</span>);
+	btn.onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+		document.getElementById(<span class="string">'demo-refresh'</span>).value = '' <span class="comment">//Clear the input value attribute.</span>
+		dtp.refresh();
+	}
+}</code></pre>
+					<strong>HTML</strong>
+					<pre><code class="xml"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"demo-refresh"</span> /&gt;</span> 
+					
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">id</span>=<span class="value">"button-refresh-value"</span> <span class="attribute">value</span>=<span class="value">"Call Refresh"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Call refresh after setting a new date using the input elements value attribute<span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">id</span>=<span class="value">"button-refresh-clear"</span> <span class="attribute">value</span>=<span class="value">"Call Refresh"</span> /&gt;</span>
+<span class="tag">&lt;<span class="title">span</span>&gt;</span>Call refresh after clearing the input elements value attribute<span class="tag">&lt;/<span class="title">span</span>&gt;</span></code></pre>
+				</div>
+				<div class="right"><a href="#top">top of page</a></div>
+			</div>
+		</div>
+	</body>
+</html>
