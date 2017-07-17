@@ -117,4 +117,4 @@ The date-formatting functions featured in the DateTimePicker support the symbols
 
 Examples
 ========
-Further user documentation and detailed examples can be found [here](http://www.google.com)
+Further user documentation and detailed examples can be found [here](https://colinmcintyre.github.io/datetimepicker/)
