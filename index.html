@@ -115,6 +115,51 @@
 			span.file-list-label{min-width:100px; padding:0; margin-right:20px;}
 			.file-list{margin: 10px;}
 			.file-list li{padding:5px 0;}
+			
+			/*GitHub*/
+			.github-download {
+			    padding-bottom: 10px;
+			}
+
+			.github-download ul {
+			    list-style: none;
+			    height: 40px;
+			    padding: 0;
+			    background: #f4f4f4;
+			    border-radius: 5px;
+			    border: 1px solid #e0e0e0;
+			    width: 270px;
+			}
+
+
+			.github-download li {
+			    width: 135px;
+			    float: left;
+			    border-right: 1px solid #e0e0e0;
+			    height: 40px;
+			}
+
+			.github-download ul a {
+			    line-height: 1;
+			    font-size: 11px;
+			    color: #676767;
+			    display: block;
+			    text-align: center;
+			    padding-top: 6px;
+			    height: 34px;
+			}
+
+			.github-download ul a strong {
+			    font-size: 14px;
+			    display: block;
+			    color: #222;
+			}
+
+			.github-download ul li + li {
+			    border-right: none;
+			    width: 134px;
+			}
+			/*END - GitHub*/
 
 			/*Code highlighting*/
 			pre{
@@ -438,7 +483,14 @@
 				<p><span class="left">Version</span>&nbsp;<span id="version-number">0.0.0.0</span> &nbsp; <span class="right">&copy; <span id="copy-right-year">0000</span></span></p>
 				<p>DateTimePicker is JavaScript date and time picker that utilises no external Javascript libraries or tool kits. Highly configurable the DateTimePicker works with any date or time format and can either be applied as a date, date/time or time picker.</p>
 
-				<div class="file-list-wrapper ">
+				<div class="file-list-wrapper ">  
+				    <div class="github-download">
+					  <ul>
+					    <li><a href="https://github.com/colinmcintyre/datetimepicker/archive/master.zip">Download <strong>ZIP File</strong></a></li>
+
+					    <li><a href="https://github.com/colinmcintyre/datetimepicker">View On <strong>GitHub</strong></a></li>
+					  </ul>
+					</div>	
 					<span class="file-list-label">Included files:</span>
 					<ul class="file-list">
 						<li><span class="mono blue">datetimepicker.min.js</span> (Minified JavaScript for production)</li>
