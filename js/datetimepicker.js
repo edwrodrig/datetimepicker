@@ -1,5 +1,5 @@
 /* 
- Date Time Picker v1.0.1.33
+ Date Time Picker v1.0.2.33
  Copyright (C) 2013 colin mcintyre
 
  This content is released under the MIT License.
