@@ -113,8 +113,9 @@ The date-formatting functions featured in the DateTimePicker support the symbols
 |`T`|Milliseconds since January 1 1970 00:00:00 GMT (Easily used to create a `JavaScript Date object` for example `new Date(1337574801020)`)|`Eg. 1337574801020`|
 |`S`|The suffix for the day of the month (as in 1st, 2nd, 23rd or 25th)|`st, nd, rd, th`|
 
----
 
-Examples
-========
+## Examples
 Further user documentation and detailed examples can be found [here](https://colinmcintyre.github.io/datetimepicker/)
+
+## Licence
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
