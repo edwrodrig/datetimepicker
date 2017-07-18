@@ -4,7 +4,7 @@ DateTimePicker
 
 DateTimePicker is JavaScript date and time picker that utilises no external Javascript libraries or tool kits. Highly configurable and with keyboard shortcuts, the DateTimePicker works with any date or time format and can either be applied as a date, date/time or time picker.
 
-![alt text](documentation/images/day.png "Day Picker View") ![alt text](documentation/images/month.png "Month Picker View") ![alt text](documentation/images/year.png "Year Picker View") ![alt text](documentation/images/time.png "time Picker View")
+![alt text](docs/images/day.png "Day Picker View") ![alt text](docs/images/month.png "Month Picker View") ![alt text](documentation/images/year.png "Year Picker View") ![alt text](docs/images/time.png "time Picker View")
 
 ## Usage
 ```javascript
